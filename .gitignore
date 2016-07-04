@@ -1,0 +1,4 @@
+*.class
+*.pyc
+*.beam
+__pycache__/
