@@ -160,6 +160,7 @@ class Node{
     target = nodes.indexOf(nextTarget);
     if(nextTarget instanceof EndNode){
       nextTarget.changeColor(color(100, 255, 100, 150));
+      nextTarget.search();
       end = true;
     }
     calc = true;
@@ -168,6 +169,20 @@ class Node{
   void resolve(int cost){
     this.resolved = true;
     this.cost = cost;
+  }
+
+  void search(){
+    if(this instanceof StartNode) return;
+
+    for(Link l: route){
+      Node next = l.left == this ? l.right : l.left;
+      if(next.cost == null) continue;
+      if(this.cost - l.cost == next.cost){
+        l.changeColor(color(0));
+        next.search();
+        break;
+      }
+    }
   }
 
   void link(Link route){
@@ -200,6 +215,7 @@ class Link{
   Node left, right;
   int cost;
   boolean linked = false;
+  color col = color(0, 90);
   Link(Node left, Node right, int cost){
     if(linkMap.get(left) == null) linkMap.put(left, new HashSet<Node>());
     if(linkMap.get(right) == null) linkMap.put(right, new HashSet<Node>());
@@ -218,10 +234,14 @@ class Link{
   }
 
   void update(){
-    stroke(0, 90);
+    stroke(col);
     strokeWeight(2);
     line(left.x, left.y, right.x, right.y);
     fill(0);
     text(cost, (left.x + right.x) / 2, (left.y + right.y) / 2);
+  }
+
+  void changeColor(color col){
+    this.col = col;
   }
 }
