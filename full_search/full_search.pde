@@ -17,7 +17,7 @@ void setup() {
       text(String.format("%s\n%s\n%s\n", 
         "click   => next", 
         "key 'r' => reset", 
-        "\nSieve of\n        Eratosthenes"
+        "\nFull Search"
         ), 40, 40);
     }
 
