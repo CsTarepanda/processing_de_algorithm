@@ -2,7 +2,7 @@ import java.util.*;
 int SIZE = 16;
 int CELL_SIZE = 30;
 void settings() {
-  size(SIZE * CELL_SIZE, SIZE * CELL_SIZE);
+  size(500, 500);
 }
 
 void setup() {
