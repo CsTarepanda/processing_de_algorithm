@@ -17,7 +17,7 @@ void setup() {
       text(String.format("%s\n%s\n%s\n", 
         "click   => next", 
         "key 'r' => reset", 
-        "\nDijkstra's algorithm"
+        "\nA*"
         ), 40, 40);
     }
 
@@ -68,7 +68,7 @@ void init() {
       createFlg = false;
       break;
     }
-    if(createFlg) new Node(x, y);
+    if(createFlg) new Node(x, y, (int)random(0, 5));
     else i--;
   }
 
@@ -101,17 +101,28 @@ class Node{
   color col1 = color(0, 100, 255, 90);
   color col2 = color(255, 225, 0, 90);
   Set<Link> route = new HashSet<Link>();
-  Node(float x, float y){
+  int additional;
+  Node(float x, float y, int additional){
     this.x = x;
     this.y = y;
-    this.id = id;
+    this.additional = additional;
     nodes.add(this);
   }
-  Node(float x, float y, int index){
+  Node(float x, float y, int additional, int index){
     this.x = x;
     this.y = y;
+    this.additional = additional;
     this.id = id;
     nodes.set(index, this);
+  }
+
+  void setCost(int cost){
+    if(this.cost == null) this.cost = cost;
+    else if(this.getCost() > cost) this.cost = cost;
+  }
+
+  Integer getCost(){
+    return this.additional + this.cost;
   }
 
   void update(){
@@ -126,7 +137,9 @@ class Node{
       noStroke();
       ellipse(x, y, CELL_SIZE * 0.7, CELL_SIZE * 0.7);
       fill(0);
-      text(cost, x, y);
+      textSize(CELL_SIZE * 0.4);
+      text(cost +"("+ getCost() + ")", x, y);
+      textSize(CELL_SIZE * 0.5);
     }
   }
 
@@ -150,13 +163,13 @@ class Node{
     Node nextTarget = null;
     for(Node n: nodes){
       if(n.cost != null && !n.resolved){
-        if(minCost == null || minCost > n.cost){
+        if(minCost == null || minCost > n.getCost()){
           nextTarget = n;
-          minCost = n.cost;
+          minCost = n.getCost();
         }
       }
     }
-    nextTarget.resolve(minCost);
+    nextTarget.resolve(nextTarget.cost);
     target = nodes.indexOf(nextTarget);
     if(nextTarget instanceof EndNode){
       nextTarget.changeColor(color(100, 255, 100, 150));
@@ -191,21 +204,21 @@ class Node{
 }
 
 class StartNode extends Node{
-  StartNode(float x, float y){
-    super(x, y);
+  StartNode(float x, float y, int additional){
+    super(x, y, additional);
     resolve(0);
   }
   StartNode(Node old, int index){
-    super(old.x, old.y, index);
+    super(old.x, old.y, old.additional, index);
     resolve(0);
   }
 }
 class EndNode extends Node{
-  EndNode(float x, float y){
-    super(x, y);
+  EndNode(float x, float y, int additional){
+    super(x, y, additional);
   }
   EndNode(Node old, int index){
-    super(old.x, old.y, index);
+    super(old.x, old.y, old.additional, index);
   }
 }
 
