@@ -71,7 +71,7 @@ void keyPressed() {
 }
 
 void init() {
-  RANGE = 2 << (SIZE - 1);
+  RANGE = 1 << SIZE;
   count = 0;
   result = 0;
 }
