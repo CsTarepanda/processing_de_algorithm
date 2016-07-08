@@ -4,10 +4,32 @@ int RANGE = 1 << SIZE;
 int CELL_SIZE = 25;
 Node top;
 Deque<Lambda> que;
-void setup() {
+void settings(){
   size(500, 500);
+}
+void setup() {
+  new PApplet() {
+    public void settings() {
+      size(250, 250);
+    }
+    public void setup() {
+      background(255);
+      textSize(20);
+      fill(0);
+      text(String.format("%s\n%s\n%s\n", 
+        "click   => next", 
+        "key 'r' => reset", 
+        "\nDepth First Search"
+        ), 40, 40);
+    }
+
+    public void runSketch() {
+      super.runSketch();
+    }
+  }
+  .runSketch();
   init();
-  frameRate(8);
+  frameRate(6);
 }
 
 void init() {
@@ -74,12 +96,6 @@ void draw() {
   top.update();
   Lambda next = que.poll();
   if (next != null) next.apply();
-  if (end) {
-    textSize(30);
-    textAlign(CORNER, CORNER);
-    fill(0);
-    text("end", 10, 30);
-  }
 }
 
 final color CLEAR = color(255, 100, 0);
