@@ -5,7 +5,7 @@ defmodule Main do
     range = 1 <<< size
     for x <- 0..range - 1 do
       data |> calc(x, 0, size)
-    end |> Enum.map(& :io.format "~p, ", [&1])
+    end
   end
 
   def calc(data, pattern, sum, depth) do
@@ -24,4 +24,4 @@ defmodule Main do
   end
 end
 
-Main.main(6)
+Main.main(6) |> Enum.map(& :io.format "~p, ", [&1])
