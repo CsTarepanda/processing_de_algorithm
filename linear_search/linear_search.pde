@@ -42,7 +42,7 @@ class Main{
             y = (i / size) * CELL_SIZE;
             fill(255);
             if(i == index) fill(255, 0, 0, 100);
-            if(i == targeti) fill(255, 0, 0);
+            if(i == targeti) fill(index == targeti ? 200 : 255, 0, 0);
             rect(x, y, CELL_SIZE, CELL_SIZE);
             fill(0);
             text(datas[i], x + CELL_SIZE/2, y + CELL_SIZE/2);
