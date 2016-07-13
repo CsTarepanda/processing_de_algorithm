@@ -97,7 +97,7 @@ void setup() {
         "click   => next", 
         "key 'r' => reset", 
         String.format("key 't' => %s", auto ? "manual" : "auto"),
-        "\nBinary Search"
+        "\nBubble Sort"
         ), 40, 40);
     }
     
