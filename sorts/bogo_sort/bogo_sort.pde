@@ -26,7 +26,8 @@ class Main{
         break;
       }
     }
-    if(!sorted) drawResult(datas, bad, this);
+    if(sorted) drawResult(datas, bad, null);
+    else drawResult(datas, bad, this);
   }
 
   void drawResult(ArrayList<Integer> datas, int bad, Main main){
@@ -44,7 +45,7 @@ class Main{
           fill(0);
           text(datas.get(i), x + CELL_SIZE/2, height - CELL_SIZE/2);
         }
-        main.alg();
+        if(main != null) main.alg();
       }
       Lambda set(ArrayList<Integer> datas, int bad, Main main){
         this.datas = new ArrayList<Integer>(datas);
@@ -86,7 +87,7 @@ void setup() {
         "click   => next", 
         "key 'r' => reset", 
         String.format("key 't' => %s", auto ? "manual" : "auto"),
-        "\nBubble Sort"
+        "\nBogo Sort"
         ), 40, 40);
     }
     
