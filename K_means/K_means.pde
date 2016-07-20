@@ -3,8 +3,9 @@ Deque<Lambda> breakPoint;
 final int SIZE = 200;
 final int CELL_SIZE = 30;
 boolean auto = false;
+final float[][] datas = new float[SIZE][2];
 class Main {
-  float[][] datas = new float[SIZE][2];
+  /* float[][] datas = new float[SIZE][2]; */
   List<Float[]> cls = new ArrayList<Float[]>(){{
     for(int i = 0; i < 3; i++) add(new Float[]{random(width), random(height)});
   }};
@@ -14,29 +15,29 @@ class Main {
   final color[] col = new color[cls.size()];
 
   Main() {
-    for(int i = 0; i < datas.length; i++){
-      float x = 0;
-      float y = 0;
-      switch((int)random(3)){
-        case 0:
-        x = random(width/2 - width/4, width/2 + width/4);
-        y = random(height/2);
-        break;
-
-        case 1:
-        x = random(width/4 - width/8, width/4 + width/8);
-        y = random(height/2, height);
-        break;
-
-        case 2:
-        x = random(width/4 * 3 - width/8, width/4 * 3 + width/8);
-        y = random(height/2, height);
-        break;
-
-        default: break;
-      }
-      datas[i] = new float[]{x, y};
-    }
+    /* for(int i = 0; i < datas.length; i++){ */
+    /*   float x = 0; */
+    /*   float y = 0; */
+    /*   switch((int)random(3)){ */
+    /*     case 0: */
+    /*     x = random(width/2 - width/4, width/2 + width/4); */
+    /*     y = random(height/2); */
+    /*     break; */
+    /*  */
+    /*     case 1: */
+    /*     x = random(width/4 - width/8, width/4 + width/8); */
+    /*     y = random(height/2, height); */
+    /*     break; */
+    /*  */
+    /*     case 2: */
+    /*     x = random(width/4 * 3 - width/8, width/4 * 3 + width/8); */
+    /*     y = random(height/2, height); */
+    /*     break; */
+    /*  */
+    /*     default: break; */
+    /*   } */
+    /*   datas[i] = new float[]{x, y}; */
+    /* } */
 
     for(int i = 0; i < col.length; i++){
       col[i] = color(random(255), random(255), random(255));
@@ -79,6 +80,7 @@ class Main {
       }
       if(flg) break;
     }
+    drawResult(datas, cls, map);
   }
 
   void drawResult(final float[][] all, final List<Float[]> cls, final Map<Float[], List<Integer>> links) {
@@ -131,6 +133,29 @@ void settings() {
 }
 
 void setup() {
+  for(int i = 0; i < datas.length; i++){
+    float x = 0;
+    float y = 0;
+    switch((int)random(3)){
+      case 0:
+      x = random(width/2 - width/4, width/2 + width/4);
+      y = random(height/2);
+      break;
+
+      case 1:
+      x = random(width/4 - width/8, width/4 + width/8);
+      y = random(height/2, height);
+      break;
+
+      case 2:
+      x = random(width/4 * 3 - width/8, width/4 * 3 + width/8);
+      y = random(height/2, height);
+      break;
+
+      default: break;
+    }
+    datas[i] = new float[]{x, y};
+  }
   new PApplet() {
     public void settings() {
       size(250, 250);
